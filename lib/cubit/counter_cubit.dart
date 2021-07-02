@@ -20,12 +20,10 @@ class CounterCubit extends Cubit<CounterState> {
   void starttimer() {
     if (_timer == null) {
       _timer = new Timer.periodic(new Duration(seconds: 1), (t) {
-        if (state.counterValue > 0) {
-          emit(CounterState(counterValue: state.counterValue - 1));
-        } else {
+        emit(CounterState(counterValue: state.counterValue - 1));
+        if (state.counterValue == 0) {
           _timer!.cancel();
           _timer = null;
-          FlutterRingtonePlayer.playNotification();
         }
       });
     }
