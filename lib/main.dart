@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:timerbloc/animatedwave.dart';
 
 import 'anim-bkg.dart';
 import 'cubit/counter_cubit.dart';
@@ -35,6 +38,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  onBottom(Widget child) => Positioned.fill(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: child,
+        ),
+      );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +52,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       body: Stack(children: [
         Positioned.fill(child: CustomAnimatedBackground()),
+        onBottom(AnimatedWave(
+          height: 180,
+          speed: 1.0,
+        )),
+        onBottom(AnimatedWave(
+          height: 120,
+          speed: 1.9,
+          offset: pi,
+        )),
+        onBottom(AnimatedWave(
+          height: 220,
+          speed: 1.2,
+          offset: pi / 2,
+        )),
         BlocListener<CounterCubit, CounterState>(
           listener: (context, state) {
             if (state.counterValue == 0) {
