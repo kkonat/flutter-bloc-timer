@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
+import 'anim-bkg.dart';
 import 'cubit/counter_cubit.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => CounterCubit(),
       child: MaterialApp(
-        title: 'Bloc counter',
+        title: 'Bloc counter2',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
         ),
@@ -40,25 +41,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          // Box decoration takes a gradient
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            // Add one stop for each color. Stops should increase from 0 to 1
-            stops: [0.1, 0.5, 0.7, 0.9],
-            colors: [
-              // Colors are easy thanks to Flutter's Colors class.
-              Color(0xFF42A5F5),
-              Color(0xFFBBDEFB),
-              Color(0xFF9FA8DA),
-              Color(0xFF00ACC1),
-            ],
-          ),
-        ),
-        child: BlocListener<CounterCubit, CounterState>(
+      body: Stack(children: [
+        Positioned.fill(child: CustomAnimatedBackground()),
+        BlocListener<CounterCubit, CounterState>(
           listener: (context, state) {
             if (state.counterValue == 0) {
               FlutterRingtonePlayer.playNotification();
@@ -110,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }

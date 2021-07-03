@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 part 'counter_state.dart';
 
